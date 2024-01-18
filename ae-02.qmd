@@ -1,0 +1,45 @@
+---
+title: "Geom, Geom in ggplot2, Which is the Best of Them All?"
+format: html
+editor: visual
+---
+
+# Setup
+
+```{r}
+#| label: load-packages
+#| message: false
+
+library(tidyverse)
+library(openintro)
+```
+
+# Part 1 - Visualizing relationships and distributions together
+
+1.  Create a visualization that displays the relationship between two numerical variables (`price` and `area`) as well as the distributions of the individual variables in a single plot.
+
+```{r}
+#| label: label-me-1
+
+# add code here
+```
+
+2.  Build on the plot from Exercise 1 to show the individual values of the number of beds in houses plotted. Experiment with other aesthetic mappings you can bring in to further improve the display.
+
+```{r}
+#| label: label-me-2
+
+# add code here
+```
+
+# Part 2 - Visualizing variability
+
+Visualize the mean sale price of houses for each year built along with a measure of the variability of sale prices for that built year. Critique your plots for how appropriately they visualize / communicate the variability in house prices for a given year built.
+
+You're welcomed to use any code developed so far in the slides and build on it.
+
+```{r}
+#| label: label-me-3
+
+# add code here
+```
