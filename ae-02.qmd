@@ -12,6 +12,7 @@ editor: visual
 
 library(tidyverse)
 library(openintro)
+library(scales)
 ```
 
 # Part 1 - Visualizing relationships and distributions together
@@ -21,11 +22,13 @@ library(openintro)
 ```{r}
 #| label: first visualization
 
-ggplot(duke_forest, aes(x = price, y = area)) +
+ggplot(duke_forest, aes(x = area, y = price)) +
   geom_point(alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Price (dollars)",
-       y = "Area (square feet)",
+  scale_x_continuous(labels = label_number(big.mark = ",")) + 
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K")) +
+  labs(y = "Sale Price (USD)",
+       x = "Area (square feet)",
        title = "Prices of houses in Duke Forest by Area")
 
 
@@ -39,10 +42,12 @@ ggplot(duke_forest, aes(x = price, y = area)) +
 ```{r}
 #| label: second visualization
 
-ggplot(duke_forest, aes(x = price, y = area, color = factor(bed))) + 
-  geom_point() + 
-   labs(x = "Price (dollars)", 
-       y = "Area (square feet)", 
+ggplot(duke_forest, aes(x = area, y = price, color = factor(bed))) + 
+  geom_point(alpha = 0.7, size = 2) + 
+  scale_x_continuous(labels = label_number(big.mark = ",")) + 
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K")) +
+   labs(y = "Sale Price (USD)", 
+       x = "Area (square feet)", 
        title = "Prices of houses in Duke Forest by Area", 
        color = "Number of bedrooms")
 ```
@@ -56,5 +61,26 @@ You're welcomed to use any code developed so far in the slides and build on it.
 ```{r}
 #| label: label-me-3
 
-# add code here
+mean_price_year <- duke_forest %>%
+  group_by(year_built) %>%
+  summarize(
+    n = n(),
+    mean_price = mean(price),
+    sd_price = sd(price)
+  )
+
+glimpse(mean_price_year)
+```
+
+```{r}
+ggplot(mean_price_year, aes(x = year_built, y = mean_price, color = n)) + 
+  geom_pointrange(aes(
+    ymin = mean_price - sd_price, 
+    ymax = mean_price + sd_price
+  )) + 
+   scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K")) +
+  labs(x = "Year built", 
+       y = "Average Price (USD)", 
+       color = "Number of houses built", 
+       title = "Average price of homes built in Duke Forest by year") 
 ```
