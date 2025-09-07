@@ -19,17 +19,32 @@ library(openintro)
 1.  Create a visualization that displays the relationship between two numerical variables (`price` and `area`) as well as the distributions of the individual variables in a single plot.
 
 ```{r}
-#| label: label-me-1
+#| label: first visualization
 
-# add code here
+ggplot(duke_forest, aes(x = price, y = area)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Price (dollars)",
+       y = "Area (square feet)",
+       title = "Prices of houses in Duke Forest by Area")
+
+
+
 ```
+
+\
 
 2.  Build on the plot from Exercise 1 to show the individual values of the number of beds in houses plotted. Experiment with other aesthetic mappings you can bring in to further improve the display.
 
 ```{r}
-#| label: label-me-2
+#| label: second visualization
 
-# add code here
+ggplot(duke_forest, aes(x = price, y = area, color = factor(bed))) + 
+  geom_point() + 
+   labs(x = "Price (dollars)", 
+       y = "Area (square feet)", 
+       title = "Prices of houses in Duke Forest by Area", 
+       color = "Number of bedrooms")
 ```
 
 # Part 2 - Visualizing variability
